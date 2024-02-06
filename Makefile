@@ -35,8 +35,8 @@ download-checksum:
 
 install-deps:
 	# Use OS variable in the download URL and unzip command
-	$(DOWNLOAD_CMD) https://github.com/protocolbuffers/protobuf/releases/download/v3.16.3/protoc-3.16.3-$(OS)-x86_64.zip
-	unzip protoc-3.16.3-$(OS)-x86_64.zip -d ./protoc
+	wget -c  https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protoc-25.2-$(OS)-x86_64.zip
+	unzip protoc-25.2-$(OS)-x86_64.zip -d ./protoc
 
 
 postgres:
@@ -55,7 +55,7 @@ benchmarks: download-checksum
 	INDEXER_CONFIG_PATH="${PWD}/config/Settings.toml" PATH="${PWD}/protoc/bin:${PATH}" cargo bench 
 
 compose:
-	docker compose -f contrib/docker-compose.yaml up
+	docker-compose -f contrib/docker-compose.yaml up
 
 test: download-checksum
 	cargo test save_block -- --nocapture
